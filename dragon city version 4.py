@@ -198,12 +198,13 @@ def end_game(play_again):
 # ---------- set up the window ----------
 root = tk.Tk()
 root.withdraw()
-answer = simpledialog.askstring("Dragon City", "Enter your Dragon's Name:")
+answer = simpledialog.askstring("Dragon City"
+                                "Enter your Dragon's name:")
 if answer and answer.strip() != "":
     name = answer.strip()
 root.deiconify()
 
-root.title("Dragon City")
+root.title("Dragon city")
 root.geometry("860x960")
 root.configure(bg="#2c3e50")
 
