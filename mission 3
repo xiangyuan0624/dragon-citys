@@ -1,0 +1,53 @@
+def draw():
+    """Updates the screen to match the game variables."""
+    stats.config(text=name + "  |  Attack: " + str(attack) +
+                 "  |  Shield: " + str(shield) +
+                 "  |  Gold: " + str(gold) +
+                 "  |  Level: " + str(level))
+
+    for r in range(SIZE):
+        for c in range(SIZE):
+            tile = grid[r][c]
+
+            if r == player_row and c == player_col:
+                text = name[:6].upper() + "\nATK:" + str(attack)
+                bg = "#3498db"
+                fg = "white"
+            elif tile == "T":
+                text, bg, fg = "GOLD", "#f1c40f", "black"
+            elif tile == "P":
+                text, bg, fg = "SHIELD", "#2ecc71", "white"
+            elif tile == "S":
+                text, bg, fg = "SAFE\nZONE", "#9b59b6", "white"
+            elif tile == "E75":
+                text, bg, fg = "BOSS\n75", "#8b0000", "white"
+            elif tile.startswith("E"):
+                text, bg, fg = "ENEMY\n" + tile[1:], "#e74c3c", "white"
+            else:
+                text, bg, fg = "", "#ecf0f1", "black"
+
+            labels[r][c].config(text=text, bg=bg, fg=fg)
+
+
+def fight(enemy_power):
+    """Returns True if the player wins the fight."""
+    global attack, shield, level
+
+    if attack >= enemy_power:
+        attack = attack + enemy_power    # absorb the enemy's power
+        level = level + 1
+        return True
+
+    # player loses: shield takes the damage first
+    damage = enemy_power
+    if shield >= damage:
+        shield = shield - damage
+        damage = 0
+    else:
+        damage = damage - shield
+        shield = 0
+    attack = attack - damage
+    if attack < 0:
+        attack = 0
+    return False
+
