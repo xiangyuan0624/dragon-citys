@@ -1,0 +1,48 @@
+def move(event):
+    """Runs every time a key is pressed."""
+    global player_row, player_col, gold, shield
+
+    key = event.keysym.lower()
+    new_row = player_row
+    new_col = player_col
+
+    if key == "w":
+        new_row = new_row - 1
+    elif key == "s":
+        new_row = new_row + 1
+    elif key == "a":
+        new_col = new_col - 1
+    elif key == "d":
+        new_col = new_col + 1
+    else:
+        return   # some other key, do nothing
+
+    # stay inside the grid
+    if new_row < 0 or new_row >= SIZE or new_col < 0 or new_col >= SIZE:
+        return
+
+    tile = grid[new_row][new_col]
+    can_move = True
+
+    if tile.startswith("E"):
+        power = int(tile[1:])
+        won = fight(power)
+        if won:
+            grid[new_row][new_col] = "."
+        else:
+            can_move = False     # enemy is still there, so we can't step on it
+
+    elif tile == "T":
+        gold = gold + 50
+        grid[new_row][new_col] = "."
+
+    elif tile == "P":
+        shield = shield + 20
+        grid[new_row][new_col] = "."
+
+    if can_move:
+        player_row = new_row
+        player_col = new_col
+
+    draw()
+    check_end()
