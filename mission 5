@@ -1,0 +1,15 @@
+def check_end():
+    """Checks if the player has won or lost."""
+    if attack <= 0:
+        again = messagebox.askyesno("GAME OVER",
+                                    name + " was defeated!\n"
+                                    "Level: " + str(level) + "   Gold: " + str(gold) +
+                                    "\n\nTry again?")
+        end_game(again)
+    elif grid[player_row][player_col] == "S" or (player_row == 9 and player_col == 9):
+        again = messagebox.askyesno("YOU WIN!",
+                                    name + " reached the safe zone!\n"
+                                    "Level: " + str(level) + "   Gold: " + str(gold) +
+                                    "\n\nPlay again?")
+        end_game(again)
+
