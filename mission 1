@@ -1,0 +1,6 @@
+import random
+import tkinter as tk
+from tkinter import simpledialog, messagebox
+#game settings
+SIZE = 10          # the grid is 10 x 10
+CELL = 80          # size of each square in pixels
