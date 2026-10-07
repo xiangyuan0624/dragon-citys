@@ -1,0 +1,38 @@
+def make_map():
+    """Makes a new random map."""
+    global grid
+    grid = []
+    for r in range(SIZE):
+        row = []
+        for c in range(SIZE):
+            row.append(".")
+        grid.append(row)
+
+    # fixed things
+    grid[1][0] = "E5"      # easy enemy next to the start
+    grid[9][9] = "S"       # safe zone
+    grid[8][9] = "E75"     # bosses guarding the safe zone
+    grid[9][8] = "E75"
+
+    # make a list of all the empty squares and shuffle it
+    empty = []
+    for r in range(SIZE):
+        for c in range(SIZE):
+            if grid[r][c] == "." and not (r == 0 and c == 0):
+                empty.append((r, c))
+    random.shuffle(empty)
+
+    # 5 gold
+    for i in range(5):
+        r, c = empty.pop()
+        grid[r][c] = "T"
+
+    # 4 shields
+    for i in range(4):
+        r, c = empty.pop()
+        grid[r][c] = "P"
+
+    # 10 enemies with different power
+    for power in [10, 15, 20, 25, 30, 35, 40, 50, 60, 70]:
+        r, c = empty.pop()
+        grid[r][c] = "E" + str(power)
