@@ -1,6 +1,19 @@
 import random
 import tkinter as tk
 from tkinter import simpledialog, messagebox
-#game settings
+
+# ---------- settings ----------
 SIZE = 10          # the grid is 10 x 10
 CELL = 80          # size of each square in pixels
+
+# ---------- game variables ----------
+name = "Hero"
+player_row = 0
+player_col = 0
+attack = 5
+shield = 0
+gold = 0
+level = 1
+grid = []          # the map (list of lists)
+labels = []        # the label for every square on the screen
+
